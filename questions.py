@@ -1,5 +1,8 @@
 import nltk
 import sys
+import os
+from nltk.corpus import stopwords
+from nltk.tokenize import RegexpTokenizer
 
 FILE_MATCHES = 1 # Specifies how many files should match for query.
 SENTENCE_MATCHES = 1 # How many sentences within those files should match.
@@ -48,7 +51,15 @@ def load_files(directory):
     Given a directory name, return a dictionary mapping the filename of each
     `.txt` file inside that directory to the file's contents as a string.
     """
-    raise NotImplementedError
+    documents = dict()
+    
+    for file in os.listdir(directory):
+        filePath = os.path.join(directory, file)
+        if os.path.isfile(filePath):
+            with open(filePath, 'r') as f:
+                documents[file] = f.read()
+                
+    return documents    
 
 
 def tokenize(document):
@@ -59,7 +70,18 @@ def tokenize(document):
     Process document by coverting all words to lowercase, and removing any
     punctuation or English stopwords.
     """
-    raise NotImplementedError
+    # Tokenizer for removing punctuations
+    punct_tokenizer = RegexpTokenizer(r'\w+')
+
+    # Set of stopwords that need to be removed
+    to_be_removed = set(stopwords.words('english'))
+    
+    return list(
+        map(
+            lambda x: x.lower(), [word for word in punct_tokenizer.tokenize(document) \
+            if not word in to_be_removed]
+        )
+    )
 
 
 def compute_idfs(documents):
