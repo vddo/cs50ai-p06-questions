@@ -3,6 +3,7 @@ import sys
 import os
 from nltk.corpus import stopwords
 from nltk.tokenize import RegexpTokenizer
+import numpy as np
 
 FILE_MATCHES = 1 # Specifies how many files should match for query.
 SENTENCE_MATCHES = 1 # How many sentences within those files should match.
@@ -84,6 +85,23 @@ def tokenize(document):
     )
 
 
+def num_doc_contain(word, documents):
+    """
+    Takes a word and returns in how many documents the word appears.
+
+    Args:
+        word (string): Word that appears at least once in one of the corpus' documents.
+        documents (dictionary): List of all document's words mapped to the document's name
+    """
+    count_document_containing = 0
+    
+    for d in documents:
+        if word in documents[d]:
+            count_document_containing += 1
+            
+    return count_document_containing
+
+
 def compute_idfs(documents):
     """
     Given a dictionary of `documents` that maps names of documents to a list
@@ -92,7 +110,27 @@ def compute_idfs(documents):
     Any word that appears in at least one of the documents should be in the
     resulting dictionary.
     """
-    raise NotImplementedError
+    # Extract all unique words from all documents by adding the set-converted
+    # list of words to one combined list.
+    set_all_words = set()
+    for d in documents:
+        set_all_words.update(
+            set(documents[d])
+        )
+    
+    # Convert set to a list.
+    list_all_words = list(set_all_words)
+    
+    # Create and fill dictionary
+    idfs = {}
+    total_documents = len(documents.keys())
+    
+    for word in list_all_words:
+        idfs[word] = np.log(
+            total_documents / num_doc_contain(word, documents)
+        )
+        
+    return idfs
 
 
 def top_files(query, files, idfs, n):

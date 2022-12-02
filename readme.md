@@ -35,9 +35,9 @@ Functions to implement:
 
 ### function ```compute_idfs``` ###
 
-+ input: dictionary of ```documents```
++ input: dictionary of ```documents``` with words as *list*
 + return: new dictionary mapping **words** to their **IDF** (invers document fequency) **values**
-+ input is dictionary mapping name of documents to **list** of their words, see in ```main``` ```file_words```
++ input is dictionary mapping name of documents to **list** of their words, see in ```main``` &rarr; ```file_words```
 + returned dictionary should map **every word** that appears at least once in all of the documents
 + IDF defined by taking natural logarithm of number of documents divided by number of documents in which the word appears
 
