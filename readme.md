@@ -4,8 +4,8 @@ Functions to implement:
 
 1. [x] ```load_files```
 2. [x] ```tokenize```
-3. ```compute_idfs```
-4. ```top_files```
+3. [x] ```compute_idfs```
+4. [x] ```top_files```
 5. ```top_sentences```
 
 ## To-Dos ##
@@ -35,11 +35,11 @@ Functions to implement:
 
 ### function ```compute_idfs``` ###
 
-+ input: dictionary of ```documents``` with words as *list*
-+ return: new dictionary mapping **words** to their **IDF** (invers document fequency) **values**
-+ input is dictionary mapping name of documents to **list** of their words, see in ```main``` &rarr; ```file_words```
-+ returned dictionary should map **every word** that appears at least once in all of the documents
-+ IDF defined by taking natural logarithm of number of documents divided by number of documents in which the word appears
++ [x] input: dictionary of ```documents``` with words as *list*
++ [x] return: new dictionary mapping **words** to their **IDF** (invers document fequency) **values**
+  + input is dictionary mapping name of documents to **list** of their words, see in ```main``` &rarr; ```file_words```
+  + returned dictionary should map **every word** that appears at least once in all of the documents
+  + IDF defined by taking natural logarithm of number of documents divided by number of documents in which the word appears
 
 $$
 IDF = \log \frac{TotalDocuments}{NumDocumentsContaining(word)}
@@ -47,20 +47,20 @@ $$
 
 ### function ```top_files``` ###
 
-+ input:
++ [x] input:
   + ```query``` (set of words),
-  + ```files```  (a dictionary mapping names of files to a list of their words), also see in ```main``` ```file_words```
+  + ```files```  (a dictionary mapping names of files to a list of their words), also see in ```main``` &rarr; ```file_words```
   + and ```idfd``` (dictionary mapping words to their IDF values)
   
-+ return: **list** of the filenames of the ```n```top files that match the query
++ [x] return: **list** of the filenames of the ```n``` top files that match the query
   + ranked akording to tf-idf
 
-+ returned *list* of filenames with length ```n```, ordered with best match first
++ [x] returned *list* of filenames with length ```n```, ordered with best match first
 
-+ files ordered according to the sum of tf-idf values for any word int the query
++ [x] files ordered according to the sum of tf-idf values for any word in the query
   + that also appears in the file
   + words in the query that do not appear in file should not contribute to file's score
-+ tf-idf... multiplying number of times the term appears in the document by the IDF value for that term
++ [x] tf-idf... multiplying number of times the term appears in the document by the IDF value for that term
 
 $$
 tfidf = NumberInDocument(word) \cdot IDF(word)
