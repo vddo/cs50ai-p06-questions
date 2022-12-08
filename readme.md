@@ -6,7 +6,7 @@ Functions to implement:
 2. [x] ```tokenize```
 3. [x] ```compute_idfs```
 4. [x] ```top_files```
-5. ```top_sentences```
+5. [x] ```top_sentences```
 
 ## To-Dos ##
 
@@ -68,17 +68,17 @@ $$
 
 ### function ```top_sentences``` ###
 
-+ input:
++ [x] input:
   + ```query```
   + ```sentences``` (dictionary mapping sentences to a list of their words)
     + see in ```main``` ```sentence``` and ```nltk.sent_tokenize```
   + ```idfs``` (dictionary mapping words to IDF)
-+ return: *list* of ```n``` top sentences
++ [x] return: *list* of ```n``` top sentences
   + ranked according IDF
   + length ```n```
-+ sentences ranking: "matching word measure" -> sum of IDF for any word in the query that also appears in sentence
++ [x] sentences ranking: "matching word measure" -> sum of IDF for any word in the query that also appears in sentence
   + term frequency not to be taken into account
   + only inverse document frequenzy
-+ two sentences same value: prefer higher "query term density"
++ [x] two sentences same value: prefer higher "query term density"
   + ... preportion of words in the sentence that are also words in the query
   + e.g. sentence has 10 words, 3 of which are in the query - *density* = ```0.3```

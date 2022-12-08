@@ -79,7 +79,7 @@ def tokenize(document):
     
     return list(
         map(
-            lambda x: x.lower(), [word for word in punct_tokenizer.tokenize(document) \
+            lambda x: x, [word for word in punct_tokenizer.tokenize(document.lower()) \
             if not word in to_be_removed]
         )
     )
@@ -141,6 +141,7 @@ def top_files(query, files, idfs, n):
     files that match the query, ranked according to tf-idf.
     """
     tf_idf = {}
+    print(query)
     
     # First loop over all files.
     for file in files.keys():
