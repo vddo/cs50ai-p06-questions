@@ -73,7 +73,7 @@ $$
   + ```sentences``` (dictionary mapping sentences to a list of their words)
     + see in ```main``` ```sentence``` and ```nltk.sent_tokenize```
   + ```idfs``` (dictionary mapping words to IDF)
-+ return: *list* of ```n```top sentences
++ return: *list* of ```n``` top sentences
   + ranked according IDF
   + length ```n```
 + sentences ranking: "matching word measure" -> sum of IDF for any word in the query that also appears in sentence
