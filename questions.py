@@ -111,7 +111,7 @@ def compute_idfs(documents):
     resulting dictionary.
     """
     # Extract all unique words from all documents by adding the set-converted
-    # list of words to one combined list.
+    # List of words to one combined list.
     set_all_words = set()
     for d in documents:
         set_all_words.update(
@@ -140,14 +140,13 @@ def top_files(query, files, idfs, n):
     to their IDF values), return a list of the filenames of the the `n` top
     files that match the query, ranked according to tf-idf.
     """
-    set_query = set(tokenize(query))
     tf_idf = {}
     
     # First loop over all files.
     for file in files.keys():
         list_compute_current_file = []
         # Loop over words in set query.
-        for word in set_query:
+        for word in query:
             if word in idfs and idfs[word] != 0:
                 list_compute_current_file.append(idfs[word] * files[file].count(word))
 
@@ -174,7 +173,29 @@ def top_sentences(query, sentences, idfs, n):
     the query, ranked according to idf. If there are ties, preference should
     be given to sentences that have a higher query term density.
     """
-    raise NotImplementedError
+    idf_sentences = {}
+    for sentence in sentences:    
+        idf_sum = 0
+        count_density = 0
+        # Loop over words in set query.
+        for word in query:
+            if word in sentences[sentence] and idfs[word] != 0:
+                idf_sum += idfs[word]
+                count_density += 1
+
+        # Compute idf sum and map in dict.
+        idf_sentences[sentence] = [idf_sum, count_density/len(sentences[sentence])]
+    
+    # Order the sentences and return list with length n
+    list_ordered_sentences = []
+    sentences_idf_sorted = sorted(idf_sentences.items(), key= lambda x:(x[1][0], x[1][1]), reverse=True)
+
+    i = 0
+    while i < n:
+        list_ordered_sentences.append(sentences_idf_sorted[i][0])
+        i += 1
+    
+    return list_ordered_sentences
 
 
 if __name__ == "__main__":
